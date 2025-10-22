@@ -1,63 +1,75 @@
-import React, { useState } from "react";
-import { Text, View } from "react-native";
-import { PaperProvider, TextInput } from "react-native-paper";
+import React from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Button, Icon, Provider as PaperProvider, TextInput, useState } from "react-native-paper";
 
+const estil = "florida";
+const isAdmin = true;
 
+const mostrarIcona = () => {
+  return(
+    <Button mode="contained" icon = "format-list-bulleted">
+      INFORMES
+    </Button>
+  )
+}
 
-
-const saluda = (nom, cognoms) => {
-
-  const [contrasenya, setPassword] = useState("");
-  const [contrasenyaOculta, setContrasenyaOculta] = useState(true);
-  
-  const modificaContrasenya = (unPassword)=> {
-    setPassword(unPassword);
-    console.log("Actualitze: "+unPassword);
-  }
-
-  const modificaContrasenyaOculta = ()=> {
-    setContrasenyaOculta(!contrasenyaOculta);
-  
-  }
-  
+const Nom = (textAmostrar, estil) => {
   return (
-    <View style={{margin:20}}>
-      <Text style={{fontSize: 18, margin:10}}>
-        Hola {nom} {cognoms}!!
-      </Text>
-      <Text>Primera pàgina de prova!!!.</Text>
-
-      <View>
-        <TextInput mode="outlined" label="Password"
-        secureTextEntry={contrasenyaOculta}
-        right={<TextInput.Icon icon="eye" />}
+    <Text style={estil}>{textAmostrar}</Text>
+  )
+}
+const arreu = () => {
+  return estil == "florida" ? "white" : "orange"
+}
+const Dades = (arr) => {
+  return (
+    arr.map((elem, index) => {
+      return (
+        <View key={index}>
+        <TextInput
+          placeholderTextColor={arreu}
+          style={styles[estil]}
+          key={index}
+          placeholder={elem}
         />
-      </View>
-      <View>
-     
-      </View>
-    </View>
-  );
-};
+        </View>
+      )
+    })
+  )
 
-const Index = () => {
+}
 
-
+const Inici = () => {
   return (
     <PaperProvider>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          fontSize: 18,
-        }}
-      >
-        {saluda("Manel", "Viel")}
-        
+      <View>
+        {Nom("Jorge Sevilla Genoves", { fontSize: 18, fontWidth: "bold", margin: 20 })}
+        {Dades(["Correu", "Nom"])}
+        {mostrarIcona()}
       </View>
     </PaperProvider>
   );
-};
+}
 
-export default Index;
+
+const styles = StyleSheet.create(
+  {
+    upv: {
+      backgroundColor: 'purple',
+      fontSize: 10,
+      fontWeight: '600',
+      padding: 4,
+      paddingLeft: 12,
+      textAlign: 'left',
+      color: 'grey',
+    },
+    florida: {
+      backgroundColor: 'red',
+      fontSize: 12,
+      fontWeight: '600',
+      padding: 4,
+      paddingRight: 12,
+      textAlign: 'right',
+    },
+  })
+export default Inici;
